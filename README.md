@@ -45,6 +45,17 @@ The default `bootstrap` skips remote asset preparation and is suitable for local
 
 ## Development and Usage
 
+### Headless launcher (`zh`)
+
+`zh` runs the Agent CLI from the built bundle under Bun, falling back to Node when Bun is unavailable. It is the fastest path to headless runs and needs no SEA packaging.
+
+```bash
+./install.sh          # ensures Bun + pnpm deps, builds dist/zcode.cjs, links bin/zh
+zh -p "summarize this repo"
+```
+
+`zh` forwards all arguments to the CLI, so every headless flag works, e.g. `zh -p "..."` for a one-shot prompt. The installer links `bin/zh` into `~/.local/bin`; set `ZH_BIN_DIR` to choose a different directory.
+
 ### Desktop
 
 ```bash
