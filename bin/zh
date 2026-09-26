@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# zh — run the zcode CLI headlessly under Bun (no SEA binary needed).
+#
+#   zh "prompt"              one-shot headless prompt
+#   zh --help                full CLI help (zh passes every argument through)
+#
+# Resolution order:
+#   1. $ZCODE_CLI_DIST (explicit override)
+#   2. <repo>/apps/zcode-cli/packages/cli/dist/zcode.cjs   (built by install.sh)
+# Runtime: bun if available, otherwise node.
+set -euo pipefail
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+default_dist="$script_dir/apps/zcode-cli/packages/cli/dist/zcode.cjs"
+cli_dist="${ZCODE_CLI_DIST:-$default_dist}"
+
+if [[ ! -f "$cli_dist" ]]; then
+  echo "zh: CLI bundle not found at $cli_dist" >&2
+  echo "zh: run ./install.sh first (or set ZCODE_CLI_DIST)." >&2
+  exit 1
+fi
+
+if command -v bun >/dev/null 2>&1; then
+  exec bun "$cli_dist" "$@"
+fi
+
+if command -v node >/dev/null 2>&1; then
+  exec node "$cli_dist" "$@"
+fi
+
+echo "zh: neither bun nor node found on PATH." >&2
+exit 1
