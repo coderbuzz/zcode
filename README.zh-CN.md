@@ -19,6 +19,10 @@ ZCode 是 AI 编程工作台，提供桌面应用、浏览器界面和终端 Age
 | Web / ZCode 命令行版 | 终端与浏览器工作台；将 TUI、Web、后端和 Agent 组装为独立运行包 | `pnpm dev:web`                 |
 | Agent CLI            | 在终端中使用 `zcode`，也为 Desktop 和 Web 提供 Agent 运行时    | `pnpm --filter @zcode/cli dev` |
 
+## 更新
+
+- 2026-9-23：更新至 ZCode v3.14.3 版本。
+
 ## 初始化
 
 准备 Git、Node.js **24.14.0** 和 pnpm **10.33.2**，版本以 [mise.toml](mise.toml) 为准。以下开发和打包命令均在仓库根目录执行。
